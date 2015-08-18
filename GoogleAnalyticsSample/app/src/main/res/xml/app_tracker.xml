@@ -22,5 +22,5 @@
     specify an alternate screen name use an <screenName> element, with the name
     attribute specifying the canonical name, and the value the alias to use instead. -->
 
-    <string name="com.unikve.googleanalyticssample.MainActivity">MainActivityScreen</string>
+    <screenName name="com.unikve.googleanalyticssample.MainActivity">MainActivityScreen</screenName>
 </resources>
