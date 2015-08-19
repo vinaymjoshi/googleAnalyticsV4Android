@@ -15,6 +15,9 @@ import java.util.HashMap;
  */
 public class AnalyticsApplication extends Application
 {
+
+    private static final String TRACKER_ID = "UA-66439289-1";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,11 +38,12 @@ public class AnalyticsApplication extends Application
 
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
-            Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(R.xml.app_tracker)
-                   // : (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(R.xml.global_tracker)
+            Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(R.xml.app_tracker)/*(TRACKER_ID)*/
+                   // : (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(TRACKER_ID)
                    // : analytics.newTracker(R.xml.ecommerce_tracker)
-                    :null;
+                    :analytics.newTracker(TRACKER_ID) ;
             t.enableAdvertisingIdCollection(true); //if Admob is used
+
             mTrackers.put(trackerId, t);
 
         }
@@ -58,13 +62,16 @@ public class AnalyticsApplication extends Application
                 .build());
 
     }
-    public void trackScreenView(Activity activity,String screenName, String action, String category)
+    public void trackScreenView(Activity activity,String screenName)
     {
 
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(activity);
+        analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
         Tracker tracker=getTracker(TrackerName.APP_TRACKER);
         tracker.setScreenName(screenName);
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
+        //tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
     public void reportActivityStart(Activity activity)
     {
@@ -74,4 +81,5 @@ public class AnalyticsApplication extends Application
     {
         GoogleAnalytics.getInstance(activity).reportActivityStop(activity);
     }
+
 }
