@@ -1,10 +1,12 @@
 Step 1: Add following depandency in your app build.gradle:
+    
     compile 'com.google.android.gms:play-services:7.5.0'
 Note: Make sure version is available in your sdk, if not check which version is available and change 7.5.0 to available version.
 
 Step 2: Add AnalyticsApplication.java in your application main package where your default application class exists.
 
 Step 3: Make your top level application class to extend from AnalyticsApplication. for example :
+    
     public class MyApplication extends AnalyticsApplication
     {
         @Override
@@ -15,18 +17,21 @@ Step 3: Make your top level application class to extend from AnalyticsApplicatio
     }
 
 Step 4: Declare the MyApplication as your application class in manifest if noot already done.
+   
     <application
         android:name=".MyApplication"
         ...
         ...
         >
 Step 5: Add following permisstions:
+  
     <!-- Get permission for reliable local dispatching on non-Google Play devices. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 Step 6: Add following declarions in <application> tag:
+   
     <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
               android:enabled="true">
         <intent-filter>
@@ -60,6 +65,7 @@ Step 9: Add screenName tag for all activitites/fragments in app_tracker.xml whic
 <screenName name="com.unikve.googleanalyticssample.MainActivity">MainActivityScreen</screenName>
 
 Step 9: Track page views in any activity as below:
+   
     @Override
     protected void onStart() {
         super.onStart();
@@ -72,6 +78,7 @@ Step 9: Track page views in any activity as below:
     }
 
 Step 10: Track custom events as below (for example button click):
+   
     ((MyApplication) getApplication()).trackEvent(MainActivity.this,"MainActivity","UX","editprofile-button-click");
 
 Step 11: Finish. 
