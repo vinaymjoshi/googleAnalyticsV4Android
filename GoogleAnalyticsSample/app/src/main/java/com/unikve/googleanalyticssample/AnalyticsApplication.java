@@ -3,6 +3,7 @@ package com.unikve.googleanalyticssample;
 import android.app.Activity;
 import android.app.Application;
 
+import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Logger;
@@ -21,6 +22,7 @@ public class AnalyticsApplication extends Application
     @Override
     public void onCreate() {
         super.onCreate();
+        getTracker(TrackerName.APP_TRACKER); //setup app tracker
     }
 
     public static int GENERAL_TRACKER = 0;
@@ -44,8 +46,13 @@ public class AnalyticsApplication extends Application
                     :analytics.newTracker(TRACKER_ID) ;
             t.enableAdvertisingIdCollection(true); //if Admob is used
 
+            Thread.UncaughtExceptionHandler myHandler = new ExceptionReporter(
+                    t,                                        // Currently used Tracker.
+                    Thread.getDefaultUncaughtExceptionHandler(),      // Current default uncaught exception handler.
+                    this);                                         // Context of the application.
+            // Make myHandler the new default uncaught exception handler.
+            Thread.setDefaultUncaughtExceptionHandler(myHandler);
             mTrackers.put(trackerId, t);
-
         }
         return mTrackers.get(trackerId);
     }

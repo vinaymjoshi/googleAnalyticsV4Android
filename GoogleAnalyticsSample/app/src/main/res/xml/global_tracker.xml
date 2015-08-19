@@ -13,5 +13,5 @@
 
     <!-- The screen names that will appear in reports -->
 
-    <screenName name="com.unikve.googleanalyticssample.MainActivity">MainActivityScreen</screenName>
+    <!-- <screenName name="com.unikve.googleanalyticssample.MainActivity">MainActivityScreen</screenName> -->
 </resources>
