@@ -83,4 +83,9 @@ Step 10: Track custom events as below (for example button click):
 
 Step 11: Finish. 
 
-Note: Events and page views take 24-48 hours to update in google analytics dashboard however, you should see real time events in real time dashboard page after few minutes of events.
+Note: 1. The screenName tags are the Activities names that we will see in our GA dasboard for the defined Activities.
+2. The ga_autoActivityTracking will send a screenView each time an activity is created automatically however you can send manualy for better control, for example:
+ 
+        ((MyApplication) getApplication()).trackScreenView(activity); //inside your activity onCreate(), or onResume
+ 
+2. Events and page views take 24-48 hours to update in google analytics dashboard however, you should see real time events in real time dashboard page after few minutes of events.
